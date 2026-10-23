@@ -78,7 +78,7 @@ Time is in **seconds** throughout (not frame numbers), because a webcam has no f
 - [ ] Onboarding / recording tips (camera at hip height, 2–3 m, side view for depth, front for knees)
 - [ ] Settings: model lite/full, people 1–2 (`session.maxPeople` already supports it), threshold tuning, reset progress, export/import data
 - [ ] Accessibility pass (reduced motion, captions for voice lines), mobile layout tuning
-- [ ] GitHub Pages deploy workflow
+- [x] GitHub Pages deploy workflow (`.github/workflows/deploy.yml`; enable Pages with Source: GitHub Actions)
 
 ## Ideas for later
 

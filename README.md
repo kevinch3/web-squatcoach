@@ -42,6 +42,17 @@ npm run build     # static site in dist/
 
 Stack: Vite, Svelte 5, TypeScript, Tailwind CSS v4, `@mediapipe/tasks-vision`, Vitest.
 
+## Deploy
+
+Pushing to `main` runs `.github/workflows/deploy.yml`, which tests, builds and publishes `dist/` to GitHub Pages.
+
+One-time setup: in the repo, go to **Settings → Pages → Build and deployment → Source** and choose
+**GitHub Actions**. The site is then served at `https://kevinch3.github.io/web-squatcoach/`. Pages serves it
+over HTTPS, which the camera needs.
+
+For a custom domain (e.g. `squat.kevinroberts.ar`), add a `public/CNAME` file containing the domain, point a
+DNS `CNAME` record at `kevinch3.github.io`, and set the domain in the same Pages settings.
+
 ## Credits
 
 The coaching logic (rep state machine, scoring rules, no-rep rules, view detection and voice script) is ported
