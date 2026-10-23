@@ -1,5 +1,7 @@
 # Squat Coach
 
+<img alt="Interface snapshot" src="https://github.com/user-attachments/assets/e2e7eb7e-95ec-4fc7-849c-aa1972b5288f" />
+
 A gamified AI squat coach that runs **in your browser**. Turn on your webcam and squat: it counts your reps,
 scores each one out of 100 on depth, form and tempo, calls out no reps, and coaches you out loud. Good reps
 earn XP, combos, streaks and badges.
