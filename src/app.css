@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+
+/* Brand palette from kevinroberts.ar: orange rgb(249,116,21) on dark rgb(36,39,46). */
+@theme {
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #f97415;
+  --color-brand-hover: #fb8a3c;
+  --color-brand-deep: #c2570c;
+  --color-brand-soft: rgb(249 116 21 / 0.14);
+
+  --color-ink: #24272e;
+  --color-ink-deep: #181a1f;
+  --color-ink-raised: #2e323a;
+  --color-ink-edge: #3a3f49;
+
+  --color-text: #f4f4f5;
+  --color-muted: #a1a1aa;
+  --color-faint: #52525b;
+
+  /* Rep semantics (kept from the original: green = good rep, red = no rep). */
+  --color-good: #4ade80;
+  --color-bad: #f43f5e;
+  --color-warn: #f97415;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-ink-deep text-text min-h-dvh font-sans antialiased;
+    background-image: radial-gradient(
+      ellipse 80% 50% at 50% -10%,
+      rgb(249 116 21 / 0.12),
+      transparent 70%
+    );
+    background-attachment: fixed;
+  }
+  :focus-visible {
+    @apply outline-brand outline-2 outline-offset-2;
+  }
+}
+
+@utility card {
+  @apply bg-ink border-ink-edge rounded-2xl border;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold transition-colors disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-brand hover:bg-brand-hover text-ink-deep;
+}
+@utility btn-ghost {
+  @apply btn border-ink-edge text-text hover:border-brand hover:text-brand border;
+}
+@utility eyebrow {
+  @apply text-muted text-xs font-semibold tracking-[0.18em] uppercase;
+}
