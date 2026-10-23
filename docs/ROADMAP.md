@@ -38,17 +38,21 @@ Time is in **seconds** throughout (not frame numbers), because a webcam has no f
 - [x] Game rules: XP, level curve, combo, streak, achievements
 - [x] Unit tests, including end-to-end runs on synthetic side-view poses
 
-### M2: Live camera
+### M2: Live camera ✅
 
-- [ ] `src/lib/pose/landmarker.ts`: load `PoseLandmarker` (WASM from jsDelivr pinned to the installed
-      `@mediapipe/tasks-vision` version, `pose_landmarker_lite` model), GPU with CPU fallback
-- [ ] `CameraStage.svelte`: `getUserMedia`, permission/error states, mirrored preview, overlay canvas
-- [ ] Skeleton coloured per rule (torso red past 50° lean, feet red on heel lift, legs green at depth,
-      red on knee cave) and a knee-angle label
-- [ ] Detection loop with `requestAnimationFrame` + `detectForVideo`, `isRealPerson` filter,
-      left-to-right person order
-- [ ] HUD card (good reps / attempts, last score, average, stage, view, depth bar) and rep toast
-- [ ] Start / pause / finish set controls; 3-2-1 countdown
+- [x] `src/lib/pose/landmarker.ts`: `PoseLandmarker` with the WASM runtime bundled from `node_modules`
+      (always matches the JS API, no CDN), `pose_landmarker_lite` model, GPU with CPU fallback.
+      Loaded lazily (dynamic import) so only the Train page pays for it
+- [x] `CameraStage.svelte`: `getUserMedia`, permission/missing/busy/insecure-context errors, mirrored preview,
+      overlay canvas, loading states, fps readout, "step back into frame" hint
+- [x] Skeleton coloured per rule (`src/lib/camera/draw.ts`): torso red past 50° lean, feet red on heel lift,
+      legs green at depth / red on knee cave, knee-angle tag, "KNEES IN" tag, per-person names when 2+ people
+- [x] Detection loop on `requestVideoFrameCallback` (rAF fallback); poses are mirrored to match the preview
+- [x] `SquatSet` (`src/lib/pose/set.ts`): `isRealPerson` filter, left-to-right order, rep + fault events
+- [x] HUD card (good reps / attempts, last score, average, stage, view, combo, depth bar with parallel marker)
+- [x] Rep toasts (score + cue, or NO REP + reason), rep chips (score + GOOD / fault tag), 3-2-1 countdown
+- [x] Start / cancel / finish set; finished sets are saved (XP, history, badges) with a summary card
+- [ ] Pause / resume (deferred: finishing and starting a new set covers it for now)
 
 ### M3: Voice + dashboard
 
@@ -56,12 +60,14 @@ Time is in **seconds** throughout (not frame numbers), because a webcam has no f
       1.2 s late are dropped, the summary is always said
 - [ ] Voice picker + mute in settings
 - [ ] `KneeChart` (canvas, live, standing/parallel guides, good/bad rep markers)
-- [ ] `DepthGauge` (needle follows the knee), `RepChips` (score + GOOD / fault tag), live `ScoreRing`
-- [ ] `SetSummary` card (clean reps, average, focus tip, spoken summary)
+- [ ] `DepthGauge` (needle follows the knee), live `ScoreRing`
+- [x] `RepChips` (score + GOOD / fault tag), done in M2
+- [x] `SetSummary` card (clean reps, average, focus tip, XP breakdown, level-up, new badges), done in M2
+- [ ] Spoken set summary
 
 ### M4: Gamification
 
-- [ ] Award XP per rep (with combo multiplier) and set bonuses; save `SetRecord` to history
+- [x] Award XP per rep (with combo multiplier) and set bonuses; save `SetRecord` to history (`game/progress.ts`)
 - [ ] Combo meter, PERFECT pop + orange flash on 85+, confetti on perfect sets and level-ups
 - [ ] Level-up modal, badge unlock toasts
 - [ ] History page: score trend chart (SVG), per-set rep breakdown
@@ -70,7 +76,7 @@ Time is in **seconds** throughout (not frame numbers), because a webcam has no f
 ### M5: Polish and ship
 
 - [ ] Onboarding / recording tips (camera at hip height, 2–3 m, side view for depth, front for knees)
-- [ ] Settings: model lite/full, people 1–2, threshold tuning, reset progress, export/import data
+- [ ] Settings: model lite/full, people 1–2 (`session.maxPeople` already supports it), threshold tuning, reset progress, export/import data
 - [ ] Accessibility pass (reduced motion, captions for voice lines), mobile layout tuning
 - [ ] GitHub Pages deploy workflow
 
